@@ -6,13 +6,19 @@ import java.util.Date;
 public class DateProvider {
     private static DateProvider instance = null;
 
-    public static DateProvider getInstance() {
+    private Calendar cal = null;
+    public synchronized static DateProvider getInstance() {
         if (instance == null)
             instance = new DateProvider();
         return instance;
     }
 
-    public Date now() {
-        return Calendar.getInstance().getTime();
+    private DateProvider()
+    {
+    	cal = Calendar.getInstance();
+    }
+    
+    public synchronized Date now() {
+     	return cal.getTime();
     }
 }
